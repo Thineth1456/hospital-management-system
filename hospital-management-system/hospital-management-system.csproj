@@ -53,6 +53,10 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Doctor.cs" />
+    <Compile Include="patient_reciption.cs" />
+    <Compile Include="patient_reciption.Designer.cs">
+      <DependentUpon>patient_reciption.cs</DependentUpon>
+    </Compile>
     <Compile Include="Session.cs" />
     <Compile Include="DataManager.cs" />
     <Compile Include="DoctorSessionsForm.cs">
@@ -71,6 +75,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="patient_reciption.resx">
+      <DependentUpon>patient_reciption.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
