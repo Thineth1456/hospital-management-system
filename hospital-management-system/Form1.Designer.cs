@@ -1,4 +1,4 @@
-﻿namespace hospital_management_system
+namespace hospital_management_system
 {
     partial class Form1
     {
@@ -100,6 +100,7 @@
             this.btnLogin.TabIndex = 5;
             this.btnLogin.Text = "Login";
             this.btnLogin.UseVisualStyleBackColor = false;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click_1);
             // 
             // btnClear
             // 
@@ -113,6 +114,7 @@
             this.btnClear.TabIndex = 6;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = false;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click_1);
             // 
             // Form1
             // 
