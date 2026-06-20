@@ -57,6 +57,10 @@
     <Compile Include="patient_reciption.Designer.cs">
       <DependentUpon>patient_reciption.cs</DependentUpon>
     </Compile>
+    <Compile Include="patient_registration.cs" />
+    <Compile Include="patient_registration.Designer.cs">
+      <DependentUpon>patient_registration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Session.cs" />
     <Compile Include="DataManager.cs" />
     <Compile Include="DoctorSessionsForm.cs">
@@ -78,6 +82,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="patient_reciption.resx">
       <DependentUpon>patient_reciption.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="patient_registration.resx">
+      <DependentUpon>patient_registration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
