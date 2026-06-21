@@ -68,9 +68,13 @@ namespace hospital_management_system
 
             if (username == "admin" && password == "123")
             {
-                DoctorSessionsForm dashboard = new DoctorSessionsForm();
-                dashboard.Show();
+                var regForm = new HMS.Form1();
+                regForm.Show();
                 this.Hide();
+
+                // DoctorSessionsForm dashboard = new DoctorSessionsForm();
+                // dashboard.Show();
+                //this.Hide();
             }
             else
             {

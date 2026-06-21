@@ -1,4 +1,7 @@
-﻿namespace HMS
+using System.Windows.Forms;
+using System.Drawing;
+
+namespace HMS
 {
     partial class doctor_registration
     {

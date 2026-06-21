@@ -103,5 +103,15 @@ namespace HMS
         {
             ClearFields();
         }
+
+        private void save_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void clear_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

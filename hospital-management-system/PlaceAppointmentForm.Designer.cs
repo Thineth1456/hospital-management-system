@@ -16,6 +16,8 @@ namespace hospital_management_system
         
         private Panel pnlPatientSearch;
         private Label lblSearchTitle;
+        private RadioButton rdoSearchById;
+        private RadioButton rdoSearchByContact;
         private Label lblPatientId;
         private TextBox txtPatientId;
         private Button btnSearch;
@@ -58,6 +60,8 @@ namespace hospital_management_system
             
             this.pnlPatientSearch = new Panel();
             this.lblSearchTitle = new Label();
+            this.rdoSearchById = new RadioButton();
+            this.rdoSearchByContact = new RadioButton();
             this.lblPatientId = new Label();
             this.txtPatientId = new TextBox();
             this.btnSearch = new Button();
@@ -145,6 +149,8 @@ namespace hospital_management_system
             this.pnlPatientSearch.Location = new Point(25, 190);
             this.pnlPatientSearch.Size = new Size(470, 310);
             this.pnlPatientSearch.Controls.Add(this.lblSearchTitle);
+            this.pnlPatientSearch.Controls.Add(this.rdoSearchById);
+            this.pnlPatientSearch.Controls.Add(this.rdoSearchByContact);
             this.pnlPatientSearch.Controls.Add(this.lblPatientId);
             this.pnlPatientSearch.Controls.Add(this.txtPatientId);
             this.pnlPatientSearch.Controls.Add(this.btnSearch);
@@ -166,11 +172,28 @@ namespace hospital_management_system
             this.lblSearchTitle.Location = new Point(15, 10);
             this.lblSearchTitle.Size = new Size(440, 15);
 
+            // rdoSearchById
+            this.rdoSearchById.Text = "Search by ID";
+            this.rdoSearchById.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            this.rdoSearchById.ForeColor = Color.White;
+            this.rdoSearchById.Location = new Point(15, 30);
+            this.rdoSearchById.Size = new Size(150, 20);
+            this.rdoSearchById.Checked = true;
+            this.rdoSearchById.CheckedChanged += new System.EventHandler(this.rdoSearch_CheckedChanged);
+
+            // rdoSearchByContact
+            this.rdoSearchByContact.Text = "Search by Contact";
+            this.rdoSearchByContact.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            this.rdoSearchByContact.ForeColor = Color.White;
+            this.rdoSearchByContact.Location = new Point(180, 30);
+            this.rdoSearchByContact.Size = new Size(180, 20);
+            this.rdoSearchByContact.CheckedChanged += new System.EventHandler(this.rdoSearch_CheckedChanged);
+
             // lblPatientId
-            this.lblPatientId.Text = "Search Patient ID";
+            this.lblPatientId.Text = "Enter Patient ID";
             this.lblPatientId.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             this.lblPatientId.ForeColor = Color.FromArgb(191, 203, 219);
-            this.lblPatientId.Location = new Point(15, 30);
+            this.lblPatientId.Location = new Point(15, 55);
             this.lblPatientId.Size = new Size(150, 18);
 
             // txtPatientId
@@ -178,17 +201,17 @@ namespace hospital_management_system
             this.txtPatientId.ForeColor = Color.White;
             this.txtPatientId.Font = new Font("Segoe UI", 10F);
             this.txtPatientId.BorderStyle = BorderStyle.FixedSingle;
-            this.txtPatientId.Location = new Point(15, 50);
+            this.txtPatientId.Location = new Point(15, 75);
             this.txtPatientId.Size = new Size(290, 25);
 
             // btnSearch
-            this.btnSearch.Text = "Search ID";
+            this.btnSearch.Text = "Search";
             this.btnSearch.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             this.btnSearch.BackColor = Color.FromArgb(59, 130, 246); // Blue
             this.btnSearch.ForeColor = Color.White;
             this.btnSearch.FlatStyle = FlatStyle.Flat;
             this.btnSearch.FlatAppearance.BorderSize = 0;
-            this.btnSearch.Location = new Point(315, 49);
+            this.btnSearch.Location = new Point(315, 74);
             this.btnSearch.Size = new Size(140, 27);
             this.btnSearch.UseVisualStyleBackColor = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
@@ -197,14 +220,14 @@ namespace hospital_management_system
             this.lblSearchResultStatus.Text = "Enter an ID (e.g. P101) to search, or register a new patient.";
             this.lblSearchResultStatus.Font = new Font("Segoe UI", 8.5F, FontStyle.Italic);
             this.lblSearchResultStatus.ForeColor = Color.FromArgb(148, 163, 184);
-            this.lblSearchResultStatus.Location = new Point(15, 82);
+            this.lblSearchResultStatus.Location = new Point(15, 107);
             this.lblSearchResultStatus.Size = new Size(440, 18);
 
             // lblPatientName
             this.lblPatientName.Text = "Patient Name";
             this.lblPatientName.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             this.lblPatientName.ForeColor = Color.FromArgb(191, 203, 219);
-            this.lblPatientName.Location = new Point(15, 110);
+            this.lblPatientName.Location = new Point(15, 135);
             this.lblPatientName.Size = new Size(210, 18);
 
             // txtPatientName
@@ -212,14 +235,14 @@ namespace hospital_management_system
             this.txtPatientName.ForeColor = Color.White;
             this.txtPatientName.Font = new Font("Segoe UI", 10F);
             this.txtPatientName.BorderStyle = BorderStyle.FixedSingle;
-            this.txtPatientName.Location = new Point(15, 130);
+            this.txtPatientName.Location = new Point(15, 155);
             this.txtPatientName.Size = new Size(210, 25);
 
             // lblPatientAge
             this.lblPatientAge.Text = "Age";
             this.lblPatientAge.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             this.lblPatientAge.ForeColor = Color.FromArgb(191, 203, 219);
-            this.lblPatientAge.Location = new Point(240, 110);
+            this.lblPatientAge.Location = new Point(240, 135);
             this.lblPatientAge.Size = new Size(80, 18);
 
             // txtPatientAge
@@ -227,14 +250,14 @@ namespace hospital_management_system
             this.txtPatientAge.ForeColor = Color.White;
             this.txtPatientAge.Font = new Font("Segoe UI", 10F);
             this.txtPatientAge.BorderStyle = BorderStyle.FixedSingle;
-            this.txtPatientAge.Location = new Point(240, 130);
+            this.txtPatientAge.Location = new Point(240, 155);
             this.txtPatientAge.Size = new Size(80, 25);
 
             // lblPatientGender
             this.lblPatientGender.Text = "Gender";
             this.lblPatientGender.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             this.lblPatientGender.ForeColor = Color.FromArgb(191, 203, 219);
-            this.lblPatientGender.Location = new Point(335, 110);
+            this.lblPatientGender.Location = new Point(335, 135);
             this.lblPatientGender.Size = new Size(120, 18);
 
             // cmbPatientGender
@@ -244,14 +267,14 @@ namespace hospital_management_system
             this.cmbPatientGender.DropDownStyle = ComboBoxStyle.DropDownList;
             this.cmbPatientGender.Items.AddRange(new object[] { "Male", "Female", "Other" });
             this.cmbPatientGender.SelectedIndex = 0;
-            this.cmbPatientGender.Location = new Point(335, 130);
+            this.cmbPatientGender.Location = new Point(335, 155);
             this.cmbPatientGender.Size = new Size(120, 25);
 
             // lblPatientContact
             this.lblPatientContact.Text = "Contact / Telephone Number";
             this.lblPatientContact.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             this.lblPatientContact.ForeColor = Color.FromArgb(191, 203, 219);
-            this.lblPatientContact.Location = new Point(15, 170);
+            this.lblPatientContact.Location = new Point(15, 190);
             this.lblPatientContact.Size = new Size(440, 18);
 
             // txtPatientContact
@@ -259,15 +282,15 @@ namespace hospital_management_system
             this.txtPatientContact.ForeColor = Color.White;
             this.txtPatientContact.Font = new Font("Segoe UI", 10F);
             this.txtPatientContact.BorderStyle = BorderStyle.FixedSingle;
-            this.txtPatientContact.Location = new Point(15, 190);
+            this.txtPatientContact.Location = new Point(15, 210);
             this.txtPatientContact.Size = new Size(440, 25);
 
             // lblPatientNotice
-            this.lblPatientNotice.Text = "* If the patient is not in the system, you can type their information above to automatically register them on confirmation.";
+            this.lblPatientNotice.Text = "* If the patient is not in the system, you can register them by clicking \"Register Patient\" in the message pop-up if the search fails.";
             this.lblPatientNotice.Font = new Font("Segoe UI", 8F, FontStyle.Italic);
             this.lblPatientNotice.ForeColor = Color.FromArgb(148, 163, 184);
-            this.lblPatientNotice.Location = new Point(15, 230);
-            this.lblPatientNotice.Size = new Size(440, 65);
+            this.lblPatientNotice.Location = new Point(15, 245);
+            this.lblPatientNotice.Size = new Size(440, 55);
 
             // pnlAppointmentInfo
             this.pnlAppointmentInfo.BackColor = Color.FromArgb(30, 41, 59); // Slate 800

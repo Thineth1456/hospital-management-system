@@ -1,4 +1,7 @@
-﻿namespace HMS
+using System.Windows.Forms;
+using System.Drawing;
+
+namespace HMS
 {
     partial class Form1
     {
@@ -28,128 +31,122 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
-            menuStrip1 = new MenuStrip();
-            homeToolStripMenuItem = new ToolStripMenuItem();
-            registationToolStripMenuItem = new ToolStripMenuItem();
-            patientListToolStripMenuItem = new ToolStripMenuItem();
-            registerBtn = new Button();
-            p_list = new Button();
-            panel1 = new Panel();
-            menuStrip1.SuspendLayout();
-            SuspendLayout();
+            this.label1 = new System.Windows.Forms.Label();
+            this.registerBtn = new System.Windows.Forms.Button();
+            this.p_list = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.btnLogout = new System.Windows.Forms.Button();
+            this.SuspendLayout();
             // 
             // label1
             // 
-            label1.AutoSize = true;
-            label1.BackColor = Color.Transparent;
-            label1.BorderStyle = BorderStyle.FixedSingle;
-            label1.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(287, 139);
-            label1.Name = "label1";
-            label1.Size = new Size(603, 48);
-            label1.TabIndex = 1;
-            label1.Text = "PATIENT REGISTRATION RECEPTION";
-            // 
-            // menuStrip1
-            // 
-            menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { homeToolStripMenuItem, registationToolStripMenuItem, patientListToolStripMenuItem });
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1300, 28);
-            menuStrip1.TabIndex = 1;
-            menuStrip1.Text = "menuStrip1";
-            // 
-            // homeToolStripMenuItem
-            // 
-            homeToolStripMenuItem.Name = "homeToolStripMenuItem";
-            homeToolStripMenuItem.Size = new Size(64, 24);
-            homeToolStripMenuItem.Text = "Home";
-            homeToolStripMenuItem.Click += homeToolStripMenuItem_Click;
-            // 
-            // registationToolStripMenuItem
-            // 
-            registationToolStripMenuItem.Name = "registationToolStripMenuItem";
-            registationToolStripMenuItem.Size = new Size(103, 24);
-            registationToolStripMenuItem.Text = "Registration";
-            registationToolStripMenuItem.Click += registationToolStripMenuItem_Click;
-            // 
-            // patientListToolStripMenuItem
-            // 
-            patientListToolStripMenuItem.Name = "patientListToolStripMenuItem";
-            patientListToolStripMenuItem.Size = new Size(94, 24);
-            patientListToolStripMenuItem.Text = "Patient List";
-            patientListToolStripMenuItem.Click += patientListToolStripMenuItem_Click;
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(409, 93);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(324, 47);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Hospital dashboard";
             // 
             // registerBtn
             // 
-            registerBtn.BackColor = Color.Black;
-            registerBtn.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            registerBtn.ForeColor = Color.White;
-            registerBtn.Location = new Point(474, 259);
-            registerBtn.Name = "registerBtn";
-            registerBtn.Size = new Size(216, 79);
-            registerBtn.TabIndex = 2;
-            registerBtn.Text = "REGISTRATION";
-            registerBtn.UseVisualStyleBackColor = false;
-            registerBtn.Click += registerBtn_Click;
+            this.registerBtn.BackColor = System.Drawing.Color.Black;
+            this.registerBtn.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.registerBtn.ForeColor = System.Drawing.Color.White;
+            this.registerBtn.Location = new System.Drawing.Point(81, 259);
+            this.registerBtn.Name = "registerBtn";
+            this.registerBtn.Size = new System.Drawing.Size(216, 79);
+            this.registerBtn.TabIndex = 2;
+            this.registerBtn.Text = "Sessions";
+            this.registerBtn.UseVisualStyleBackColor = false;
+            this.registerBtn.Click += new System.EventHandler(this.registerBtn_Click_1);
             // 
             // p_list
             // 
-            p_list.BackColor = Color.Black;
-            p_list.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            p_list.ForeColor = Color.White;
-            p_list.Location = new Point(474, 430);
-            p_list.Name = "p_list";
-            p_list.Size = new Size(216, 79);
-            p_list.TabIndex = 3;
-            p_list.Text = "PATIENT LIST";
-            p_list.UseVisualStyleBackColor = false;
-            p_list.Click += p_list_Click;
+            this.p_list.BackColor = System.Drawing.Color.Black;
+            this.p_list.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.p_list.ForeColor = System.Drawing.Color.White;
+            this.p_list.Location = new System.Drawing.Point(839, 259);
+            this.p_list.Name = "p_list";
+            this.p_list.Size = new System.Drawing.Size(216, 79);
+            this.p_list.TabIndex = 3;
+            this.p_list.Text = "Doctors";
+            this.p_list.UseVisualStyleBackColor = false;
+            this.p_list.Click += new System.EventHandler(this.p_list_Click_1);
             // 
-            // panel1
+            // button1
             // 
-            panel1.BackColor = Color.FromArgb(15, 23, 42);
-            panel1.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            panel1.ForeColor = Color.FromArgb(241, 245, 249);
-            panel1.Location = new Point(590, 92);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(8, 21);
-            panel1.TabIndex = 5;
+            this.button1.BackColor = System.Drawing.Color.Black;
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(447, 478);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(216, 79);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Prescription";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.Black;
+            this.button2.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.Color.White;
+            this.button2.Location = new System.Drawing.Point(447, 259);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(216, 79);
+            this.button2.TabIndex = 7;
+            this.button2.Text = "Patient";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // btnLogout
+            // 
+            this.btnLogout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.btnLogout.FlatAppearance.BorderSize = 0;
+            this.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLogout.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Bold);
+            this.btnLogout.ForeColor = System.Drawing.Color.White;
+            this.btnLogout.Location = new System.Drawing.Point(1089, 12);
+            this.btnLogout.Name = "btnLogout";
+            this.btnLogout.Size = new System.Drawing.Size(100, 40);
+            this.btnLogout.TabIndex = 8;
+            this.btnLogout.Text = "Log Out";
+            this.btnLogout.UseVisualStyleBackColor = false;
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(9F, 21F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(15, 23, 42);
-            ClientSize = new Size(1300, 700);
-            Controls.Add(panel1);
-            Controls.Add(p_list);
-            Controls.Add(registerBtn);
-            Controls.Add(label1);
-            Controls.Add(menuStrip1);
-            Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ForeColor = Color.FromArgb(241, 245, 249);
-            MainMenuStrip = menuStrip1;
-            Name = "Form1";
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "Hospital Management System - Doctor Sessions Dashboard";
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
+            this.ClientSize = new System.Drawing.Size(1300, 700);
+            this.Controls.Add(this.btnLogout);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.p_list);
+            this.Controls.Add(this.registerBtn);
+            this.Controls.Add(this.label1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(245)))), ((int)(((byte)(249)))));
+            this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Hospital Management System - Doctor Sessions Dashboard";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
         private Label label1;
-        private MenuStrip menuStrip1;
-        private ToolStripMenuItem homeToolStripMenuItem;
-        private ToolStripMenuItem registationToolStripMenuItem;
-        private ToolStripMenuItem patientListToolStripMenuItem;
         private Button registerBtn;
         private Button p_list;
-        private Panel panel1;
+        private Button button1;
+        private Button button2;
+        private Button btnLogout;
     }
 }

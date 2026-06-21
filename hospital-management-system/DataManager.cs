@@ -76,6 +76,15 @@ namespace hospital_management_system
             return _data.Patients.FirstOrDefault(p => p.Id.Equals(id, StringComparison.OrdinalIgnoreCase));
         }
 
+        public static Patient GetPatientByContact(string contact)
+        {
+            if (string.IsNullOrEmpty(contact)) return null;
+            string cleanSearch = contact.Replace("-", "").Replace(" ", "").Trim();
+            return _data.Patients.FirstOrDefault(p => 
+                p.Contact != null && 
+                p.Contact.Replace("-", "").Replace(" ", "").Trim().Equals(cleanSearch, StringComparison.OrdinalIgnoreCase));
+        }
+
         public static List<Appointment> GetAppointmentsForSession(string sessionId)
         {
             return _data.Appointments.Where(a => a.SessionId == sessionId).ToList();

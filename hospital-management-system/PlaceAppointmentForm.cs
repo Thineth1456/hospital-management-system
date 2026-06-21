@@ -28,16 +28,38 @@ namespace hospital_management_system
             lblAppointmentNo.Text = "#" + _nextAppointmentNo;
         }
 
+        private void rdoSearch_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdoSearchById.Checked)
+            {
+                lblPatientId.Text = "Enter Patient ID";
+            }
+            else
+            {
+                lblPatientId.Text = "Enter Contact Number";
+            }
+        }
+
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            string id = txtPatientId.Text.Trim();
-            if (string.IsNullOrEmpty(id))
+            string searchValue = txtPatientId.Text.Trim();
+            if (string.IsNullOrEmpty(searchValue))
             {
-                MessageBox.Show("Please enter a Patient ID to search.", "Input Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                string searchType = rdoSearchById.Checked ? "Patient ID" : "Contact Number";
+                MessageBox.Show($"Please enter a {searchType} to search.", "Input Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            Patient p = DataManager.GetPatientById(id);
+            Patient p = null;
+            if (rdoSearchById.Checked)
+            {
+                p = DataManager.GetPatientById(searchValue);
+            }
+            else
+            {
+                p = DataManager.GetPatientByContact(searchValue);
+            }
+
             if (p != null)
             {
                 _currentPatient = p;
@@ -51,7 +73,7 @@ namespace hospital_management_system
                     cmbPatientGender.SelectedIndex = genderIndex;
                 }
 
-                lblSearchResultStatus.Text = $"Found: {p.Name} in records.";
+                lblSearchResultStatus.Text = $"Found: {p.Name} (ID: {p.Id})";
                 lblSearchResultStatus.ForeColor = Color.FromArgb(16, 185, 129); // Emerald Green
             }
             else
@@ -62,8 +84,24 @@ namespace hospital_management_system
                 txtPatientContact.Clear();
                 cmbPatientGender.SelectedIndex = 0;
 
-                lblSearchResultStatus.Text = $"Patient not found. Fill fields below to register as ID '{id.ToUpper()}'.";
+                lblSearchResultStatus.Text = "Patient not found in system.";
                 lblSearchResultStatus.ForeColor = Color.FromArgb(239, 68, 68); // Red
+
+                string searchType = rdoSearchById.Checked ? "ID" : "Contact";
+                var result = MessageBox.Show(
+                    $"Patient with {searchType} '{searchValue}' was not found.\nWould you like to open the Registration page to add a new patient?", 
+                    "Patient Not Found", 
+                    MessageBoxButtons.YesNo, 
+                    MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    // Open registration page (HMS.Form2)
+                    var regForm = new HMS.Form2();
+                    regForm.TopMost = true;
+                    regForm.Show();
+                    this.Close();
+                }
             }
         }
 
