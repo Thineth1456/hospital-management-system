@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,7 +14,8 @@ namespace hospital_management_system
     public partial class Overview : Form
        
     {
-        private string connectionString = @"Data Source=YOUR_SERVER_NAME;Initial Catalog=HospitalDB;Integrated Security=True";
+        private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["HMSConnectionString"]?.ConnectionString 
+            ?? @"Data Source=localhost;Initial Catalog=HospitalManagementDB;Integrated Security=True;TrustServerCertificate=True";
         public Overview()
         {
             InitializeComponent();
@@ -24,7 +25,7 @@ namespace hospital_management_system
             // 🎨 Dashboard එකේ තීම් එකට ගැලපෙන්න Overview එකේ බැක්ග්‍රවුන්ඩ් එක Dark Navy කරනවා
             this.BackColor = Color.FromArgb(15, 23, 42);
 
-            // App එක රන් වෙද්දී ඩේටාබේස් එකෙන් ලයිව් ඩේටා ටික ඇදලා ගන්නවා
+            // App එක රන් වෙද්දී ඩේටාබේස් එකෙන් ලයිව් ඩේටา ටික ඇදලා ගන්නවා
             LoadDashboardCounters();
             LoadRecentAppointments();
         }
@@ -40,7 +41,7 @@ namespace hospital_management_system
                     int totalPatients = (int)cmd1.ExecuteScalar();
                     lblPatientCount.Text = totalPatients.ToString("N0");
 
-                    SqlCommand cmd2 = new SqlCommand("SELECT COUNT(*) FROM Doctors WHERE Status = 'On-Duty'", conn);
+                    SqlCommand cmd2 = new SqlCommand("SELECT COUNT(*) FROM Doctors", conn);
                     int activeDoctors = (int)cmd2.ExecuteScalar();
                     lblDoctorCount.Text = $"{activeDoctors} / 50";
                 }
@@ -60,12 +61,17 @@ namespace hospital_management_system
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = @"SELECT AppointmentID AS [Patient ID], 
-                                            PatientName AS [Patient Name], 
-                                            DoctorName AS [Assigned Doctor], 
-                                            AppointmentTime AS [Appointment Time], 
-                                            Status AS [Status] 
-                                     FROM Appointments ORDER BY AppointmentTime DESC";
+                    string query = @"SELECT 
+                                        a.Id AS [Patient ID], 
+                                        p.Name AS [Patient Name], 
+                                        d.Name AS [Assigned Doctor], 
+                                        CONCAT(FORMAT(s.SessionDate, 'yyyy-MM-dd'), ' ', s.StartTime) AS [Appointment Time], 
+                                        'Scheduled' AS [Status] 
+                                     FROM Appointments a
+                                     INNER JOIN Patients p ON a.PatientId = p.Id
+                                     INNER JOIN Sessions s ON a.SessionId = s.Id
+                                     INNER JOIN Doctors d ON s.DoctorId = d.Id
+                                     ORDER BY a.BookingTime DESC";
 
                     SqlDataAdapter da = new SqlDataAdapter(query, conn);
                     DataTable dt = new DataTable();

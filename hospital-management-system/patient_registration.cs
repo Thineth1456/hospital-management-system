@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Schema;
+using hospital_management_system;
 
 namespace HMS
 {
@@ -16,7 +17,11 @@ namespace HMS
         {
             InitializeComponent();
             this.FormClosing += new FormClosingEventHandler(Form2_FormClosing);
-            // Attach the FormClosing event handler
+            
+            // Wire click events that are unwired in designer
+            this.save.Click += new EventHandler(this.save_Click);
+            this.buttonUpdate.Click += new EventHandler(this.buttonUpdate_Click);
+            this.clear.Click += new EventHandler(this.clear_Click);
         }
 
         private void update(object sender, EventArgs e)
@@ -51,13 +56,13 @@ namespace HMS
         //Save button click event handler to save patient data to the database
         private void save_Click(object sender, EventArgs e)
         {
-            string name = p_name.Text;
-            string id = p_id.Text;
-            string bday = p_bday.Text;
+            string name = p_name.Text.Trim();
+            string id = p_id.Text.Trim();
+            string bday = p_bday.Text.Trim();
             string gender = male_button.Checked ? "Male" : "Female";
-            string contact = p_contact.Text;
-            string email = p_mail.Text;
-            string address = p_home.Text;
+            string contact = p_contact.Text.Trim();
+            string email = p_mail.Text.Trim();
+            string address = p_home.Text.Trim();
 
             //Check ID and Name fields are not empty before saving
             if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(id))
@@ -65,15 +70,31 @@ namespace HMS
                 MessageBox.Show("Please enter both Name and ID fields.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            //I will add code here to save the patient data to the database
-            //Show a message box with the entered patient information
 
-            string patientInfo = $"Name: {name}\nID: {id}\nBirthday: {bday}\nGender: {gender}\nContact: {contact}\nEmail: {email}\nAddress: {address}";
+            try
+            {
+                // Calculate age roughly if possible, or leave as string representation
+                string age = "";
+                if (!string.IsNullOrEmpty(bday))
+                {
+                    try
+                    {
+                        DateTime birthDate = DateTime.Parse(bday);
+                        age = (DateTime.Today.Year - birthDate.Year).ToString();
+                    }
+                    catch { age = "0"; }
+                }
 
-            MessageBox.Show(patientInfo, "Patient Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var patient = new Patient(id, name, age, gender, contact, email, address, bday);
+                DataManager.AddPatient(patient);
 
-            // Clear the input fields after saving
-            ClearFields();
+                MessageBox.Show($"Patient '{name}' registered successfully!", "Patient Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearFields();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Database Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private void ClearFields()
         {
@@ -84,19 +105,54 @@ namespace HMS
             p_contact.Clear();
             p_mail.Clear();
             p_home.Clear();
-            p_name.Focus(); // Cursor is set to the ID field for the next entry
+            p_name.Focus(); // Cursor is set to the name field
         }
 
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
             string id = p_id.Text.Trim();
+            string name = p_name.Text.Trim();
+            string bday = p_bday.Text.Trim();
+            string gender = male_button.Checked ? "Male" : "Female";
+            string contact = p_contact.Text.Trim();
+            string email = p_mail.Text.Trim();
+            string address = p_home.Text.Trim();
+
             if (string.IsNullOrEmpty(id))
             {
                 MessageBox.Show("Please enter the ID of the patient to update.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            //Show Update message box with the entered patient ID
-            MessageBox.Show($"Patient with ID: {id} has been updated.", "Update Patient", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if (string.IsNullOrEmpty(name))
+            {
+                MessageBox.Show("Please enter the patient's name to update.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                string age = "";
+                if (!string.IsNullOrEmpty(bday))
+                {
+                    try
+                    {
+                        DateTime birthDate = DateTime.Parse(bday);
+                        age = (DateTime.Today.Year - birthDate.Year).ToString();
+                    }
+                    catch { age = "0"; }
+                }
+
+                var patient = new Patient(id, name, age, gender, contact, email, address, bday);
+                DataManager.UpdatePatient(patient);
+
+                MessageBox.Show($"Patient with ID: {id} has been updated.", "Update Patient", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearFields();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Database Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void clear_Click(object sender, EventArgs e)
