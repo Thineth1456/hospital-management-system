@@ -74,6 +74,11 @@ namespace hospital_management_system
                 }
                 else if (clickedButton == btnDocReg) {
                     ShowPlaceholder("Doctor Management Directory");
+
+
+                }
+                else if (clickedButton == btnDocDashboard) {
+                    ShowPlaceholder("Live Doctor Hub Console");
                     var setDashboard = new hospital_management_system.DoctorSessionsForm();
                     setDashboard.TopLevel = false;
                     setDashboard.FormBorderStyle = FormBorderStyle.None;
@@ -81,9 +86,7 @@ namespace hospital_management_system
                     pnlMainDisplay.Controls.Clear();
                     pnlMainDisplay.Controls.Add(setDashboard);
                     setDashboard.Show();
-
                 } 
-                else if (clickedButton == btnDocDashboard) ShowPlaceholder("Live Doctor Hub Console");
 
                 // 📄 🆕 මෙන්න මෙතන තිබ්බ තාවකාලික ShowPlaceholder එක අයින් කරලා කෙළින්ම DoctorHub එක ලෝඩ් කරන මෙතඩ් එක කෝල් කලා:
                 else if (clickedButton == btnPrescription)
