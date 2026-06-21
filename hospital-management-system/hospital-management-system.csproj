@@ -148,6 +148,7 @@
     </Compile>
     <Compile Include="PlaceAppointmentForm.Designer.cs">
       <DependentUpon>PlaceAppointmentForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="HospitalDashboard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,6 +165,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DoctorHub.resx" />
+    <EmbeddedResource Include="DoctorSessionsForm.resx">
+      <DependentUpon>DoctorSessionsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -175,6 +179,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="patient_registration.resx">
       <DependentUpon>patient_registration.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HospitalDashboard.resx">
       <DependentUpon>HospitalDashboard.cs</DependentUpon>
     </EmbeddedResource>

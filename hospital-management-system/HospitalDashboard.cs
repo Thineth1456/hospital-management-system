@@ -61,8 +61,28 @@ namespace hospital_management_system
                 {
                     LoadOverviewForm(); // 🏠 ආයෙත් Overview එක එබුවොත් ඒක පැනල් එකට ලෝඩ් වෙනවා
                 }
-                else if (clickedButton == btnPatientReg) ShowPlaceholder("Patient Registration Engine");
-                else if (clickedButton == btnDocReg) ShowPlaceholder("Doctor Management Directory");
+                else if (clickedButton == btnPatientReg) {
+                    ShowPlaceholder("Patient Registration Engine");
+                    var setDashboard = new HMS.Form2();
+                    setDashboard.TopLevel = false;
+                    setDashboard.FormBorderStyle = FormBorderStyle.None;
+                    setDashboard.Dock = DockStyle.Fill;
+                    pnlMainDisplay.Controls.Clear();
+                    pnlMainDisplay.Controls.Add(setDashboard);
+                    setDashboard.Show();
+
+                }
+                else if (clickedButton == btnDocReg) {
+                    ShowPlaceholder("Doctor Management Directory");
+                    var setDashboard = new hospital_management_system.DoctorSessionsForm();
+                    setDashboard.TopLevel = false;
+                    setDashboard.FormBorderStyle = FormBorderStyle.None;
+                    setDashboard.Dock = DockStyle.Fill;
+                    pnlMainDisplay.Controls.Clear();
+                    pnlMainDisplay.Controls.Add(setDashboard);
+                    setDashboard.Show();
+
+                } 
                 else if (clickedButton == btnDocDashboard) ShowPlaceholder("Live Doctor Hub Console");
 
                 // 📄 🆕 මෙන්න මෙතන තිබ්බ තාවකාලික ShowPlaceholder එක අයින් කරලා කෙළින්ම DoctorHub එක ලෝඩ් කරන මෙතඩ් එක කෝල් කලා:
@@ -129,6 +149,11 @@ namespace hospital_management_system
             pnlMainDisplay.Controls.Clear();
             Label lbl = new Label { Text = "🚀 " + sectionName + " Module Active.", ForeColor = Color.FromArgb(148, 163, 184), Font = new Font("Segoe UI", 14), AutoSize = true, Location = new Point(30, 30) };
             pnlMainDisplay.Controls.Add(lbl);
+        }
+
+        private void pnlMainDisplay_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
