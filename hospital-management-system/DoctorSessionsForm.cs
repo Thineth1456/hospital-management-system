@@ -325,5 +325,10 @@ namespace hospital_management_system
                 }
             }
         }
+
+        private void dgvSessions_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
