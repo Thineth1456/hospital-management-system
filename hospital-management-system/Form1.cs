@@ -69,25 +69,52 @@ namespace hospital_management_system
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text.Trim();
 
-            if (username == "admin" && password == "123")
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                var regForm = new HospitalDashboard();
-                regForm.Show();
-                this.Hide();
-
-                // DoctorSessionsForm dashboard = new DoctorSessionsForm();
-                // dashboard.Show();
-                //this.Hide();
-            
-                
+                MessageBox.Show("Please enter both username and password.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            else
+
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["HMSConnectionString"]?.ConnectionString 
+                ?? @"Data Source=localhost;Initial Catalog=HospitalManagementDB;Integrated Security=True;TrustServerCertificate=True";
+
+            try
             {
-                MessageBox.Show(
-                    "Invalid Username or Password!",
-                    "Login Failed",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                using (var conn = new System.Data.SqlClient.SqlConnection(connectionString))
+                {
+                    string query = "SELECT Username, Role, FullName FROM Users WHERE Username = @Username AND PasswordHash = @Password";
+                    using (var cmd = new System.Data.SqlClient.SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Username", username);
+                        cmd.Parameters.AddWithValue("@Password", password);
+
+                        conn.Open();
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                LoggedInUserID = reader["Username"].ToString();
+                                LoggedInUserName = reader["FullName"].ToString();
+
+                                var regForm = new HospitalDashboard();
+                                regForm.Show();
+                                this.Hide();
+                            }
+                            else
+                            {
+                                MessageBox.Show(
+                                    "Invalid Username or Password!",
+                                    "Login Failed",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Database Login Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

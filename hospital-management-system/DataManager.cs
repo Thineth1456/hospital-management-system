@@ -1,175 +1,378 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Xml.Serialization;
 
 namespace hospital_management_system
 {
-    public class HospitalData
-    {
-        public List<Doctor> Doctors { get; set; } = new List<Doctor>();
-        public List<Session> Sessions { get; set; } = new List<Session>();
-        public List<Patient> Patients { get; set; } = new List<Patient>();
-        public List<Appointment> Appointments { get; set; } = new List<Appointment>();
-    }
-
     public static class DataManager
     {
-        private static readonly string FilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "hospital_data.xml");
-        private static HospitalData _data = new HospitalData();
+        private static readonly string ConnectionString = ConfigurationManager.ConnectionStrings["HMSConnectionString"]?.ConnectionString 
+            ?? @"Data Source=localhost;Initial Catalog=HospitalManagementDB;Integrated Security=True;TrustServerCertificate=True";
 
-        static DataManager()
+        // Helper to get a database connection
+        private static SqlConnection GetConnection()
         {
-            LoadData();
+            return new SqlConnection(ConnectionString);
         }
 
         public static List<Doctor> GetDoctors()
         {
-            return _data.Doctors;
+            var list = new List<Doctor>();
+            using (var conn = GetConnection())
+            using (var cmd = new SqlCommand("SELECT Id, Name, Specialty, Department, Room, Contact, Email, Address, Gender FROM Doctors", conn))
+            {
+                conn.Open();
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new Doctor(
+                            reader["Id"].ToString(),
+                            reader["Name"].ToString(),
+                            reader["Specialty"].ToString(),
+                            reader["Department"].ToString(),
+                            reader["Room"].ToString(),
+                            reader["Contact"]?.ToString() ?? "",
+                            reader["Email"]?.ToString() ?? "",
+                            reader["Address"]?.ToString() ?? "",
+                            reader["Gender"]?.ToString() ?? ""
+                        ));
+                    }
+                }
+            }
+            return list;
+        }
+
+        public static void AddDoctor(Doctor doc)
+        {
+            using (var conn = GetConnection())
+            using (var cmd = new SqlCommand(
+                "INSERT INTO Doctors (Id, Name, Specialty, Department, Room, Contact, Email, Address, Gender) " +
+                "VALUES (@Id, @Name, @Specialty, @Department, @Room, @Contact, @Email, @Address, @Gender)", conn))
+            {
+                cmd.Parameters.AddWithValue("@Id", doc.Id);
+                cmd.Parameters.AddWithValue("@Name", doc.Name);
+                cmd.Parameters.AddWithValue("@Specialty", doc.Specialty);
+                cmd.Parameters.AddWithValue("@Department", doc.Department);
+                cmd.Parameters.AddWithValue("@Room", doc.Room);
+                cmd.Parameters.AddWithValue("@Contact", (object)doc.Contact ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@Email", (object)doc.Email ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@Address", (object)doc.Address ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@Gender", (object)doc.Gender ?? DBNull.Value);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
         }
 
         public static List<Session> GetSessions()
         {
-            return _data.Sessions;
+            var list = new List<Session>();
+            using (var conn = GetConnection())
+            using (var cmd = new SqlCommand("SELECT Id, DoctorId, SessionDate, StartTime, EndTime, Room, MaxPatients FROM Sessions", conn))
+            {
+                conn.Open();
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new Session(
+                            reader["Id"].ToString(),
+                            reader["DoctorId"].ToString(),
+                            Convert.ToDateTime(reader["SessionDate"]),
+                            reader["StartTime"].ToString(),
+                            reader["EndTime"].ToString(),
+                            reader["Room"].ToString(),
+                            Convert.ToInt32(reader["MaxPatients"])
+                        ));
+                    }
+                }
+            }
+            return list;
         }
 
         public static List<Session> GetSessionsForDoctor(string doctorId)
         {
-            return _data.Sessions
-                .Where(s => s.DoctorId == doctorId)
-                .OrderBy(s => s.SessionDate)
-                .ThenBy(s => s.StartTime)
-                .ToList();
+            var list = new List<Session>();
+            using (var conn = GetConnection())
+            using (var cmd = new SqlCommand(
+                "SELECT Id, DoctorId, SessionDate, StartTime, EndTime, Room, MaxPatients " +
+                "FROM Sessions WHERE DoctorId = @DocId " +
+                "ORDER BY SessionDate, StartTime", conn))
+            {
+                cmd.Parameters.AddWithValue("@DocId", doctorId);
+                conn.Open();
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new Session(
+                            reader["Id"].ToString(),
+                            reader["DoctorId"].ToString(),
+                            Convert.ToDateTime(reader["SessionDate"]),
+                            reader["StartTime"].ToString(),
+                            reader["EndTime"].ToString(),
+                            reader["Room"].ToString(),
+                            Convert.ToInt32(reader["MaxPatients"])
+                        ));
+                    }
+                }
+            }
+            return list;
         }
 
         public static void AddSession(Session session)
         {
-            _data.Sessions.Add(session);
-            SaveData();
+            using (var conn = GetConnection())
+            using (var cmd = new SqlCommand(
+                "INSERT INTO Sessions (Id, DoctorId, SessionDate, StartTime, EndTime, Room, MaxPatients) " +
+                "VALUES (@Id, @DoctorId, @SessionDate, @StartTime, @EndTime, @Room, @MaxPatients)", conn))
+            {
+                cmd.Parameters.AddWithValue("@Id", session.Id);
+                cmd.Parameters.AddWithValue("@DoctorId", session.DoctorId);
+                cmd.Parameters.AddWithValue("@SessionDate", session.SessionDate.Date);
+                cmd.Parameters.AddWithValue("@StartTime", session.StartTime);
+                cmd.Parameters.AddWithValue("@EndTime", session.EndTime);
+                cmd.Parameters.AddWithValue("@Room", session.Room);
+                cmd.Parameters.AddWithValue("@MaxPatients", session.MaxPatients);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
         }
 
         public static bool DeleteSession(string sessionId)
         {
-            var session = _data.Sessions.FirstOrDefault(s => s.Id == sessionId);
-            if (session != null)
+            using (var conn = GetConnection())
+            using (var cmd = new SqlCommand("DELETE FROM Sessions WHERE Id = @Id", conn))
             {
-                _data.Sessions.Remove(session);
-                SaveData();
-                return true;
+                cmd.Parameters.AddWithValue("@Id", sessionId);
+                conn.Open();
+                int rows = cmd.ExecuteNonQuery();
+                return rows > 0;
             }
-            return false;
         }
 
         public static List<Patient> GetPatients()
         {
-            return _data.Patients;
+            var list = new List<Patient>();
+            using (var conn = GetConnection())
+            using (var cmd = new SqlCommand("SELECT Id, Name, Age, Gender, Contact, Email, Address, Birthday FROM Patients", conn))
+            {
+                conn.Open();
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new Patient(
+                            reader["Id"].ToString(),
+                            reader["Name"].ToString(),
+                            reader["Age"]?.ToString() ?? "",
+                            reader["Gender"].ToString(),
+                            reader["Contact"].ToString(),
+                            reader["Email"]?.ToString() ?? "",
+                            reader["Address"]?.ToString() ?? "",
+                            reader["Birthday"]?.ToString() ?? ""
+                        ));
+                    }
+                }
+            }
+            return list;
         }
 
         public static List<Appointment> GetAppointments()
         {
-            return _data.Appointments;
+            var list = new List<Appointment>();
+            using (var conn = GetConnection())
+            using (var cmd = new SqlCommand(
+                "SELECT a.Id, a.SessionId, a.PatientId, p.Name AS PatientName, a.AppointmentNumber, a.BookingTime " +
+                "FROM Appointments a JOIN Patients p ON a.PatientId = p.Id", conn))
+            {
+                conn.Open();
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new Appointment(
+                            reader["Id"].ToString(),
+                            reader["SessionId"].ToString(),
+                            reader["PatientId"].ToString(),
+                            reader["PatientName"].ToString(),
+                            Convert.ToInt32(reader["AppointmentNumber"]),
+                            Convert.ToDateTime(reader["BookingTime"])
+                        ));
+                    }
+                }
+            }
+            return list;
         }
 
         public static Patient GetPatientById(string id)
         {
-            return _data.Patients.FirstOrDefault(p => p.Id.Equals(id, StringComparison.OrdinalIgnoreCase));
+            using (var conn = GetConnection())
+            using (var cmd = new SqlCommand(
+                "SELECT Id, Name, Age, Gender, Contact, Email, Address, Birthday FROM Patients " +
+                "WHERE Id = @Id", conn))
+            {
+                cmd.Parameters.AddWithValue("@Id", id);
+                conn.Open();
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new Patient(
+                            reader["Id"].ToString(),
+                            reader["Name"].ToString(),
+                            reader["Age"]?.ToString() ?? "",
+                            reader["Gender"].ToString(),
+                            reader["Contact"].ToString(),
+                            reader["Email"]?.ToString() ?? "",
+                            reader["Address"]?.ToString() ?? "",
+                            reader["Birthday"]?.ToString() ?? ""
+                        );
+                    }
+                }
+            }
+            return null;
         }
 
         public static Patient GetPatientByContact(string contact)
         {
             if (string.IsNullOrEmpty(contact)) return null;
             string cleanSearch = contact.Replace("-", "").Replace(" ", "").Trim();
-            return _data.Patients.FirstOrDefault(p => 
-                p.Contact != null && 
-                p.Contact.Replace("-", "").Replace(" ", "").Trim().Equals(cleanSearch, StringComparison.OrdinalIgnoreCase));
+
+            using (var conn = GetConnection())
+            using (var cmd = new SqlCommand(
+                "SELECT Id, Name, Age, Gender, Contact, Email, Address, Birthday FROM Patients " +
+                "WHERE REPLACE(REPLACE(Contact, '-', ''), ' ', '') = @Contact", conn))
+            {
+                cmd.Parameters.AddWithValue("@Contact", cleanSearch);
+                conn.Open();
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new Patient(
+                            reader["Id"].ToString(),
+                            reader["Name"].ToString(),
+                            reader["Age"]?.ToString() ?? "",
+                            reader["Gender"].ToString(),
+                            reader["Contact"].ToString(),
+                            reader["Email"]?.ToString() ?? "",
+                            reader["Address"]?.ToString() ?? "",
+                            reader["Birthday"]?.ToString() ?? ""
+                        );
+                    }
+                }
+            }
+            return null;
         }
 
         public static List<Appointment> GetAppointmentsForSession(string sessionId)
         {
-            return _data.Appointments.Where(a => a.SessionId == sessionId).ToList();
+            var list = new List<Appointment>();
+            using (var conn = GetConnection())
+            using (var cmd = new SqlCommand(
+                "SELECT a.Id, a.SessionId, a.PatientId, p.Name AS PatientName, a.AppointmentNumber, a.BookingTime " +
+                "FROM Appointments a JOIN Patients p ON a.PatientId = p.Id " +
+                "WHERE a.SessionId = @SessionId", conn))
+            {
+                cmd.Parameters.AddWithValue("@SessionId", sessionId);
+                conn.Open();
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new Appointment(
+                            reader["Id"].ToString(),
+                            reader["SessionId"].ToString(),
+                            reader["PatientId"].ToString(),
+                            reader["PatientName"].ToString(),
+                            Convert.ToInt32(reader["AppointmentNumber"]),
+                            Convert.ToDateTime(reader["BookingTime"])
+                        ));
+                    }
+                }
+            }
+            return list;
         }
 
         public static int GetNextAppointmentNumber(string sessionId)
         {
-            var appointments = GetAppointmentsForSession(sessionId);
-            return appointments.Count > 0 ? appointments.Max(a => a.AppointmentNumber) + 1 : 1;
+            using (var conn = GetConnection())
+            using (var cmd = new SqlCommand(
+                "SELECT COALESCE(MAX(AppointmentNumber), 0) + 1 FROM Appointments " +
+                "WHERE SessionId = @SessionId", conn))
+            {
+                cmd.Parameters.AddWithValue("@SessionId", sessionId);
+                conn.Open();
+                return (int)cmd.ExecuteScalar();
+            }
         }
 
         public static void AddAppointment(Appointment appointment)
         {
-            _data.Appointments.Add(appointment);
-            SaveData();
+            using (var conn = GetConnection())
+            using (var cmd = new SqlCommand(
+                "INSERT INTO Appointments (Id, SessionId, PatientId, AppointmentNumber, BookingTime) " +
+                "VALUES (@Id, @SessionId, @PatientId, @AppointmentNumber, @BookingTime)", conn))
+            {
+                cmd.Parameters.AddWithValue("@Id", appointment.Id);
+                cmd.Parameters.AddWithValue("@SessionId", appointment.SessionId);
+                cmd.Parameters.AddWithValue("@PatientId", appointment.PatientId);
+                cmd.Parameters.AddWithValue("@AppointmentNumber", appointment.AppointmentNumber);
+                cmd.Parameters.AddWithValue("@BookingTime", appointment.BookingTime);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
         }
 
         public static void AddPatient(Patient patient)
         {
-            _data.Patients.Add(patient);
-            SaveData();
-        }
+            using (var conn = GetConnection())
+            using (var cmd = new SqlCommand(
+                "INSERT INTO Patients (Id, Name, Age, Gender, Contact, Email, Address, Birthday) " +
+                "VALUES (@Id, @Name, @Age, @Gender, @Contact, @Email, @Address, @Birthday)", conn))
+            {
+                cmd.Parameters.AddWithValue("@Id", patient.Id);
+                cmd.Parameters.AddWithValue("@Name", patient.Name);
+                cmd.Parameters.AddWithValue("@Age", (object)patient.Age ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@Gender", patient.Gender);
+                cmd.Parameters.AddWithValue("@Contact", patient.Contact);
+                cmd.Parameters.AddWithValue("@Email", (object)patient.Email ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@Address", (object)patient.Address ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@Birthday", (object)patient.Birthday ?? DBNull.Value);
 
-        public static void LoadData()
-        {
-            try
-            {
-                if (File.Exists(FilePath))
-                {
-                    XmlSerializer serializer = new XmlSerializer(typeof(HospitalData));
-                    using (StreamReader reader = new StreamReader(FilePath))
-                    {
-                        _data = (HospitalData)serializer.Deserialize(reader);
-                    }
-                }
-                else
-                {
-                    InitializeMockData();
-                    SaveData();
-                }
-            }
-            catch (Exception)
-            {
-                InitializeMockData();
+                conn.Open();
+                cmd.ExecuteNonQuery();
             }
         }
 
-        public static void SaveData()
+        public static void UpdatePatient(Patient patient)
         {
-            try
+            using (var conn = GetConnection())
+            using (var cmd = new SqlCommand(
+                "UPDATE Patients SET Name = @Name, Age = @Age, Gender = @Gender, Contact = @Contact, " +
+                "Email = @Email, Address = @Address, Birthday = @Birthday " +
+                "WHERE Id = @Id", conn))
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(HospitalData));
-                using (StreamWriter writer = new StreamWriter(FilePath))
-                {
-                    serializer.Serialize(writer, _data);
-                }
+                cmd.Parameters.AddWithValue("@Id", patient.Id);
+                cmd.Parameters.AddWithValue("@Name", patient.Name);
+                cmd.Parameters.AddWithValue("@Age", (object)patient.Age ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@Gender", patient.Gender);
+                cmd.Parameters.AddWithValue("@Contact", patient.Contact);
+                cmd.Parameters.AddWithValue("@Email", (object)patient.Email ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@Address", (object)patient.Address ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@Birthday", (object)patient.Birthday ?? DBNull.Value);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error saving data: " + ex.Message);
-            }
-        }
-
-        private static void InitializeMockData()
-        {
-            _data = new HospitalData();
-
-            // Add mock Doctors
-            _data.Doctors.Add(new Doctor("1", "Dr. Olivia Bennett", "Cardiologist", "Cardiology Department", "Room 401"));
-            _data.Doctors.Add(new Doctor("2", "Dr. Alexander Wright", "Pediatrician", "Pediatrics Clinic", "Room 102"));
-            _data.Doctors.Add(new Doctor("3", "Dr. Sophia Martinez", "Neurologist", "Neurology Lab", "Room 305"));
-            _data.Doctors.Add(new Doctor("4", "Dr. Marcus Vance", "Orthopedic Surgeon", "Orthopedics Unit", "Room 211"));
-
-            // Add mock Patients
-            _data.Patients.Add(new Patient("P101", "Emma Watson", "28", "Female", "077-1234567"));
-            _data.Patients.Add(new Patient("P102", "John Doe", "45", "Male", "071-7654321"));
-            _data.Patients.Add(new Patient("P103", "Sarah Connor", "35", "Female", "075-9876543"));
-
-            // Add mock Sessions (using current date/upcoming days)
-            DateTime today = DateTime.Today;
-            _data.Sessions.Add(new Session("S101", "1", today, "09:00 AM", "12:00 PM", "Room 401", 15));
-            _data.Sessions.Add(new Session("S102", "1", today.AddDays(1), "02:00 PM", "05:00 PM", "Room 401", 12));
-            _data.Sessions.Add(new Session("S103", "2", today, "10:00 AM", "01:00 PM", "Room 102", 20));
-            _data.Sessions.Add(new Session("S104", "3", today.AddDays(2), "11:00 AM", "02:00 PM", "Room 305", 10));
-            _data.Sessions.Add(new Session("S105", "4", today.AddDays(1), "08:30 AM", "11:30 AM", "Room 211", 8));
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 using System.IO;
 
 namespace hospital_management_system
@@ -45,33 +45,39 @@ namespace hospital_management_system
                 return;
             }
 
+            // Verify patient exists before saving prescription
+            var patient = DataManager.GetPatientById(patientID);
+            if (patient == null)
+            {
+                MessageBox.Show($"Patient with ID '{patientID}' is not registered in the system. Please register the patient before prescribing medication.", "Patient Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             try
             {
-                
-                
-                string localConnectionString = "Server=localhost;Database=hms_db;Uid=root;Pwd=;";
+                string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["HMSConnectionString"]?.ConnectionString 
+                    ?? @"Data Source=localhost;Initial Catalog=HospitalManagementDB;Integrated Security=True;TrustServerCertificate=True";
 
-                using (MySqlConnection conn = new MySqlConnection(localConnectionString))
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    // 🎯 Table name එක 'medicalrecords' ලෙස නිවැරදි කලා
-                    string sqlQuery = "INSERT INTO medicalrecord (PatientID, DoctorID, Diagnosis, Prescription, Date) " +
+                    string sqlQuery = "INSERT INTO MedicalRecords (PatientId, DoctorId, Diagnosis, Prescription, RecordDate) " +
                                       "VALUES (@pID, @dID, @diag, @pres, @date)";
 
-                    using (MySqlCommand cmd = new MySqlCommand(sqlQuery, conn))
+                    using (SqlCommand cmd = new SqlCommand(sqlQuery, conn))
                     {
                         cmd.Parameters.AddWithValue("@pID", patientID);
-                        cmd.Parameters.AddWithValue("@dID", string.IsNullOrEmpty(doctorID) ? "DOC01" : doctorID); 
+                        string dID = string.IsNullOrEmpty(doctorID) || doctorID == "admin" ? "doc01" : doctorID;
+                        cmd.Parameters.AddWithValue("@dID", dID); 
                         cmd.Parameters.AddWithValue("@diag", diagnosis);
                         cmd.Parameters.AddWithValue("@pres", prescriptionText);
-                        cmd.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd"));
+                        cmd.Parameters.AddWithValue("@date", DateTime.Today);
 
                         try
                         {
                             conn.Open();
-                            cmd.ExecuteNonQuery(); // 💾 Database එකට සේව් වෙනවා
+                            cmd.ExecuteNonQuery(); // Save to SQL Server database
                             
-                            // 🎯 මෙන්න මේකයි මඟඇරිලා තිබ්බේ! ඩේටාබේස් සේව් වුණාම පල්ලෙහා තියෙන PDF Method එක Call කරනවා:
-                            GeneratePrescriptionPDF(patientID, patientName, string.IsNullOrEmpty(doctorName) ? "Dr. Kamal Perera" : doctorName, diagnosis, prescriptionText);
+                            GeneratePrescriptionPDF(patientID, patientName, string.IsNullOrEmpty(doctorName) ? "Dr. Olivia Bennett" : doctorName, diagnosis, prescriptionText);
                             
                             ClearFormFields(); // Form එක clear කරනවා
                         }

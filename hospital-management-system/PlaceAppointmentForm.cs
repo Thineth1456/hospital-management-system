@@ -143,7 +143,7 @@ namespace hospital_management_system
                 _currentPatient.Age = age;
                 _currentPatient.Gender = gender;
                 _currentPatient.Contact = contact;
-                DataManager.SaveData(); // Save updates
+                DataManager.UpdatePatient(_currentPatient); // Save updates to DB
             }
 
             // Create and save appointment

@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using hospital_management_system;
 
 namespace HMS
 {
@@ -16,6 +16,10 @@ namespace HMS
         {
             InitializeComponent();
             this.FormClosing += new FormClosingEventHandler(doctor_registration_FormClosing);
+            
+            // Wire click events that are unwired in designer
+            this.d_save.Click += new EventHandler(this.d_save_Click);
+            this.d_clear.Click += new EventHandler(this.d_clear_Click);
         }
 
         private void doctor_registration_Load(object sender, EventArgs e)
@@ -30,12 +34,12 @@ namespace HMS
 
         private void d_save_Click(object sender, EventArgs e)
         {
-            string name = d_name.Text;
-            string id = d_id.Text;
-            string specialization = special.Text;
-            string contact = d_phone.Text;
-            string email = d_mail.Text;
-            string address = d_home.Text;
+            string name = d_name.Text.Trim();
+            string id = d_id.Text.Trim();
+            string specialization = special.Text.Trim();
+            string contact = d_phone.Text.Trim();
+            string email = d_mail.Text.Trim();
+            string address = d_home.Text.Trim();
             string gender = dfemale.Checked ? "Female" : "Male";
 
             //Verify ID and Name fields are not empty before saving
@@ -44,12 +48,22 @@ namespace HMS
                 MessageBox.Show("Please fill in both Name and ID fields.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            //Show a message box to confirm saving the doctor data
-            MessageBox.Show($"Doctor Information:\n\nName: {name}\nID: {id}\n" +
-                $"Specialization: {specialization}\nContact: {contact}\nEmail: {email}\n" +
-                $"Address: {address}\nGender: {gender}", "Doctor Information",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
-            ClearFields(); // Clear input fields after saving
+
+            try
+            {
+                string dept = specialization.Contains("Department") || specialization.Contains("Clinic") ? specialization : specialization + " Department";
+                string room = "Room " + new Random().Next(101, 499);
+
+                var doctor = new Doctor(id, name, specialization, dept, room, contact, email, address, gender);
+                DataManager.AddDoctor(doctor);
+
+                MessageBox.Show($"Doctor '{name}' successfully registered!", "Doctor Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearFields(); // Clear input fields after saving
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Database Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         //clear button click event handler to clear all input fields
         private void ClearFields()
