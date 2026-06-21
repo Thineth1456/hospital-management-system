@@ -5,6 +5,9 @@ namespace hospital_management_system
 {
     public partial class Form1 : Form
     {
+        public static string LoggedInUserID { get; internal set; }
+        public static string LoggedInUserName { get; internal set; }
+
         public Form1()
         {
             InitializeComponent();
@@ -32,11 +35,7 @@ namespace hospital_management_system
                     "Success",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
-
-                // Open Dashboard Form later
-                // Dashboard dashboard = new Dashboard();
-                // dashboard.Show();
-                // this.Hide();
+                
             }
             else
             {
