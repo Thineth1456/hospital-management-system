@@ -82,5 +82,15 @@ namespace HMS
         {
             ClearFields();
         }
+
+        private void d_home_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

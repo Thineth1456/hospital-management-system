@@ -58,9 +58,9 @@ namespace HMS
             this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(269, 26);
+            this.label2.Location = new System.Drawing.Point(352, 64);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(412, 48);
+            this.label2.Size = new System.Drawing.Size(400, 47);
             this.label2.TabIndex = 6;
             this.label2.Text = "DOCTOR REGISTRATION";
             // 
@@ -70,7 +70,7 @@ namespace HMS
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(162, 132);
+            this.label1.Location = new System.Drawing.Point(285, 187);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(133, 28);
             this.label1.TabIndex = 7;
@@ -82,11 +82,12 @@ namespace HMS
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(162, 173);
+            this.label3.Location = new System.Drawing.Point(285, 261);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(99, 28);
             this.label3.TabIndex = 8;
             this.label3.Text = "Doctor ID";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
             // 
@@ -94,7 +95,7 @@ namespace HMS
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(162, 214);
+            this.label4.Location = new System.Drawing.Point(283, 326);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(126, 28);
             this.label4.TabIndex = 9;
@@ -106,7 +107,7 @@ namespace HMS
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(162, 332);
+            this.label7.Location = new System.Drawing.Point(274, 492);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(139, 28);
             this.label7.TabIndex = 18;
@@ -118,7 +119,7 @@ namespace HMS
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(162, 370);
+            this.label6.Location = new System.Drawing.Point(266, 569);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(147, 28);
             this.label6.TabIndex = 17;
@@ -130,7 +131,7 @@ namespace HMS
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(162, 288);
+            this.label5.Location = new System.Drawing.Point(274, 431);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(162, 28);
             this.label5.TabIndex = 16;
@@ -142,7 +143,7 @@ namespace HMS
             this.dfemale.BackColor = System.Drawing.Color.Transparent;
             this.dfemale.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dfemale.ForeColor = System.Drawing.Color.White;
-            this.dfemale.Location = new System.Drawing.Point(489, 252);
+            this.dfemale.Location = new System.Drawing.Point(682, 382);
             this.dfemale.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dfemale.Name = "dfemale";
             this.dfemale.Size = new System.Drawing.Size(100, 32);
@@ -157,7 +158,7 @@ namespace HMS
             this.dmale.BackColor = System.Drawing.Color.Transparent;
             this.dmale.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dmale.ForeColor = System.Drawing.Color.White;
-            this.dmale.Location = new System.Drawing.Point(355, 250);
+            this.dmale.Location = new System.Drawing.Point(534, 384);
             this.dmale.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dmale.Name = "dmale";
             this.dmale.Size = new System.Drawing.Size(80, 32);
@@ -172,7 +173,7 @@ namespace HMS
             this.label8.BackColor = System.Drawing.Color.Transparent;
             this.label8.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(162, 252);
+            this.label8.Location = new System.Drawing.Point(283, 384);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(79, 28);
             this.label8.TabIndex = 19;
@@ -183,7 +184,7 @@ namespace HMS
             this.d_clear.BackColor = System.Drawing.Color.Black;
             this.d_clear.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.d_clear.ForeColor = System.Drawing.Color.White;
-            this.d_clear.Location = new System.Drawing.Point(573, 438);
+            this.d_clear.Location = new System.Drawing.Point(694, 657);
             this.d_clear.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.d_clear.Name = "d_clear";
             this.d_clear.Size = new System.Drawing.Size(161, 41);
@@ -196,7 +197,7 @@ namespace HMS
             this.d_save.BackColor = System.Drawing.Color.Black;
             this.d_save.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.d_save.ForeColor = System.Drawing.Color.White;
-            this.d_save.Location = new System.Drawing.Point(313, 438);
+            this.d_save.Location = new System.Drawing.Point(418, 657);
             this.d_save.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.d_save.Name = "d_save";
             this.d_save.Size = new System.Drawing.Size(161, 41);
@@ -206,15 +207,17 @@ namespace HMS
             // 
             // d_name
             // 
-            this.d_name.Location = new System.Drawing.Point(355, 132);
+            this.d_name.AcceptsTab = true;
+            this.d_name.Location = new System.Drawing.Point(534, 187);
             this.d_name.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.d_name.Name = "d_name";
             this.d_name.Size = new System.Drawing.Size(465, 22);
             this.d_name.TabIndex = 28;
+            this.d_name.WordWrap = false;
             // 
             // d_id
             // 
-            this.d_id.Location = new System.Drawing.Point(355, 173);
+            this.d_id.Location = new System.Drawing.Point(534, 261);
             this.d_id.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.d_id.Name = "d_id";
             this.d_id.Size = new System.Drawing.Size(465, 22);
@@ -222,7 +225,7 @@ namespace HMS
             // 
             // special
             // 
-            this.special.Location = new System.Drawing.Point(355, 214);
+            this.special.Location = new System.Drawing.Point(534, 332);
             this.special.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.special.Name = "special";
             this.special.Size = new System.Drawing.Size(465, 22);
@@ -230,7 +233,7 @@ namespace HMS
             // 
             // d_phone
             // 
-            this.d_phone.Location = new System.Drawing.Point(355, 288);
+            this.d_phone.Location = new System.Drawing.Point(534, 438);
             this.d_phone.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.d_phone.Name = "d_phone";
             this.d_phone.Size = new System.Drawing.Size(465, 22);
@@ -238,7 +241,7 @@ namespace HMS
             // 
             // d_mail
             // 
-            this.d_mail.Location = new System.Drawing.Point(355, 332);
+            this.d_mail.Location = new System.Drawing.Point(534, 498);
             this.d_mail.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.d_mail.Name = "d_mail";
             this.d_mail.Size = new System.Drawing.Size(465, 22);
@@ -246,18 +249,19 @@ namespace HMS
             // 
             // d_home
             // 
-            this.d_home.Location = new System.Drawing.Point(355, 370);
+            this.d_home.Location = new System.Drawing.Point(534, 569);
             this.d_home.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.d_home.Name = "d_home";
             this.d_home.Size = new System.Drawing.Size(465, 22);
             this.d_home.TabIndex = 33;
+            this.d_home.TextChanged += new System.EventHandler(this.d_home_TextChanged);
             // 
             // doctor_registration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
-            this.ClientSize = new System.Drawing.Size(943, 533);
+            this.ClientSize = new System.Drawing.Size(1169, 704);
             this.Controls.Add(this.d_home);
             this.Controls.Add(this.d_mail);
             this.Controls.Add(this.d_phone);
@@ -298,11 +302,11 @@ namespace HMS
         private Label label8;
         private Button d_clear;
         private Button d_save;
-        private TextBox d_name;
         private TextBox d_id;
         private TextBox d_phone;
         private TextBox d_mail;
         private TextBox special;
         private TextBox d_home;
+        private TextBox d_name;
     }
 }
