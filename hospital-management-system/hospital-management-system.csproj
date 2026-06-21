@@ -53,7 +53,9 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Doctor.cs" />
-    <Compile Include="patient_list.cs" />
+    <Compile Include="patient_list.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="patient_list.Designer.cs">
       <DependentUpon>patient_list.cs</DependentUpon>
     </Compile>
@@ -61,9 +63,17 @@
     <Compile Include="patient_reciption.Designer.cs">
       <DependentUpon>patient_reciption.cs</DependentUpon>
     </Compile>
-    <Compile Include="patient_registration.cs" />
+    <Compile Include="patient_registration.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="patient_registration.Designer.cs">
       <DependentUpon>patient_registration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="patient_registration_final.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="patient_registration_final.Designer.cs">
+      <DependentUpon>patient_registration_final.cs</DependentUpon>
     </Compile>
     <Compile Include="Session.cs" />
     <Compile Include="DataManager.cs" />
@@ -92,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="patient_registration.resx">
       <DependentUpon>patient_registration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="patient_registration_final.resx">
+      <DependentUpon>patient_registration_final.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
