@@ -38,6 +38,7 @@ namespace hospital_management_system
             this.lblSubTitle = new System.Windows.Forms.Label();
             this.pnlMainDisplay = new System.Windows.Forms.Panel();
             this.tmrClock = new System.Windows.Forms.Timer(this.components);
+            this.btnLogout = new System.Windows.Forms.Button();
             this.pnlSidebar.SuspendLayout();
             this.pnlHeader.SuspendLayout();
             this.SuspendLayout();
@@ -54,7 +55,7 @@ namespace hospital_management_system
             this.pnlSidebar.Controls.Add(this.btnOverview);
             this.pnlSidebar.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlSidebar.Location = new System.Drawing.Point(0, 0);
-            this.pnlSidebar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlSidebar.Margin = new System.Windows.Forms.Padding(4);
             this.pnlSidebar.Name = "pnlSidebar";
             this.pnlSidebar.Size = new System.Drawing.Size(347, 886);
             this.pnlSidebar.TabIndex = 0;
@@ -63,7 +64,7 @@ namespace hospital_management_system
             // 
             this.pnlNavIndicator.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(189)))), ((int)(((byte)(248)))));
             this.pnlNavIndicator.Location = new System.Drawing.Point(0, 148);
-            this.pnlNavIndicator.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlNavIndicator.Margin = new System.Windows.Forms.Padding(4);
             this.pnlNavIndicator.Name = "pnlNavIndicator";
             this.pnlNavIndicator.Size = new System.Drawing.Size(8, 62);
             this.pnlNavIndicator.TabIndex = 1;
@@ -89,7 +90,7 @@ namespace hospital_management_system
             this.btnPatientReg.Font = new System.Drawing.Font("Segoe UI Semibold", 11F);
             this.btnPatientReg.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(163)))), ((int)(((byte)(184)))));
             this.btnPatientReg.Location = new System.Drawing.Point(8, 148);
-            this.btnPatientReg.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPatientReg.Margin = new System.Windows.Forms.Padding(4);
             this.btnPatientReg.Name = "btnPatientReg";
             this.btnPatientReg.Size = new System.Drawing.Size(339, 62);
             this.btnPatientReg.TabIndex = 3;
@@ -106,7 +107,7 @@ namespace hospital_management_system
             this.btnDocReg.Font = new System.Drawing.Font("Segoe UI Semibold", 11F);
             this.btnDocReg.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(163)))), ((int)(((byte)(184)))));
             this.btnDocReg.Location = new System.Drawing.Point(8, 222);
-            this.btnDocReg.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDocReg.Margin = new System.Windows.Forms.Padding(4);
             this.btnDocReg.Name = "btnDocReg";
             this.btnDocReg.Size = new System.Drawing.Size(339, 62);
             this.btnDocReg.TabIndex = 4;
@@ -123,7 +124,7 @@ namespace hospital_management_system
             this.btnDocDashboard.Font = new System.Drawing.Font("Segoe UI Semibold", 11F);
             this.btnDocDashboard.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(163)))), ((int)(((byte)(184)))));
             this.btnDocDashboard.Location = new System.Drawing.Point(8, 295);
-            this.btnDocDashboard.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDocDashboard.Margin = new System.Windows.Forms.Padding(4);
             this.btnDocDashboard.Name = "btnDocDashboard";
             this.btnDocDashboard.Size = new System.Drawing.Size(339, 62);
             this.btnDocDashboard.TabIndex = 5;
@@ -140,7 +141,7 @@ namespace hospital_management_system
             this.btnPrescription.Font = new System.Drawing.Font("Segoe UI Semibold", 11F);
             this.btnPrescription.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(163)))), ((int)(((byte)(184)))));
             this.btnPrescription.Location = new System.Drawing.Point(8, 369);
-            this.btnPrescription.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPrescription.Margin = new System.Windows.Forms.Padding(4);
             this.btnPrescription.Name = "btnPrescription";
             this.btnPrescription.Size = new System.Drawing.Size(339, 62);
             this.btnPrescription.TabIndex = 6;
@@ -157,7 +158,7 @@ namespace hospital_management_system
             this.btnOverview.Font = new System.Drawing.Font("Segoe UI Semibold", 11F);
             this.btnOverview.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(163)))), ((int)(((byte)(184)))));
             this.btnOverview.Location = new System.Drawing.Point(8, 468);
-            this.btnOverview.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnOverview.Margin = new System.Windows.Forms.Padding(4);
             this.btnOverview.Name = "btnOverview";
             this.btnOverview.Size = new System.Drawing.Size(339, 62);
             this.btnOverview.TabIndex = 7;
@@ -169,11 +170,12 @@ namespace hospital_management_system
             // pnlHeader
             // 
             this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
+            this.pnlHeader.Controls.Add(this.btnLogout);
             this.pnlHeader.Controls.Add(this.lblDateTime);
             this.pnlHeader.Controls.Add(this.lblSubTitle);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(347, 0);
-            this.pnlHeader.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlHeader.Margin = new System.Windows.Forms.Padding(4);
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(1253, 98);
             this.pnlHeader.TabIndex = 1;
@@ -202,13 +204,14 @@ namespace hospital_management_system
             this.lblSubTitle.Size = new System.Drawing.Size(286, 37);
             this.lblSubTitle.TabIndex = 1;
             this.lblSubTitle.Text = "Dashboard Overview";
+            this.lblSubTitle.Click += new System.EventHandler(this.lblSubTitle_Click);
             // 
             // pnlMainDisplay
             // 
             this.pnlMainDisplay.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
             this.pnlMainDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMainDisplay.Location = new System.Drawing.Point(347, 98);
-            this.pnlMainDisplay.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlMainDisplay.Margin = new System.Windows.Forms.Padding(4);
             this.pnlMainDisplay.Name = "pnlMainDisplay";
             this.pnlMainDisplay.Size = new System.Drawing.Size(1253, 788);
             this.pnlMainDisplay.TabIndex = 2;
@@ -220,6 +223,21 @@ namespace hospital_management_system
             this.tmrClock.Interval = 1000;
             this.tmrClock.Tick += new System.EventHandler(this.tmrClock_Tick);
             // 
+            // btnLogout
+            // 
+            this.btnLogout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.btnLogout.FlatAppearance.BorderSize = 0;
+            this.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLogout.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Bold);
+            this.btnLogout.ForeColor = System.Drawing.Color.White;
+            this.btnLogout.Location = new System.Drawing.Point(804, 30);
+            this.btnLogout.Name = "btnLogout";
+            this.btnLogout.Size = new System.Drawing.Size(100, 40);
+            this.btnLogout.TabIndex = 3;
+            this.btnLogout.Text = "Log Out";
+            this.btnLogout.UseVisualStyleBackColor = false;
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
+            // 
             // HospitalDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -229,7 +247,7 @@ namespace hospital_management_system
             this.Controls.Add(this.pnlMainDisplay);
             this.Controls.Add(this.pnlHeader);
             this.Controls.Add(this.pnlSidebar);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "HospitalDashboard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CarePlus Hospital Management System";
@@ -257,5 +275,6 @@ namespace hospital_management_system
         private System.Windows.Forms.Panel pnlMainDisplay;
         private System.Windows.Forms.Panel pnlNavIndicator;
         private System.Windows.Forms.Timer tmrClock;
+        private System.Windows.Forms.Button btnLogout;
     }
 }

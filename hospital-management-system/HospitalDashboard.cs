@@ -74,6 +74,13 @@ namespace hospital_management_system
                 }
                 else if (clickedButton == btnDocReg) {
                     ShowPlaceholder("Doctor Management Directory");
+                    var setDashboard = new HMS.doctor_registration();
+                    setDashboard.TopLevel = false;
+                    setDashboard.FormBorderStyle = FormBorderStyle.None;
+                    setDashboard.Dock = DockStyle.Fill;
+                    pnlMainDisplay.Controls.Clear();
+                    pnlMainDisplay.Controls.Add(setDashboard);
+                    setDashboard.Show();
 
 
                 }
@@ -155,6 +162,18 @@ namespace hospital_management_system
         }
 
         private void pnlMainDisplay_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            var loginForm = new Form1();
+            loginForm.Show();
+            this.Close();
+        }
+
+        private void lblSubTitle_Click(object sender, EventArgs e)
         {
 
         }
