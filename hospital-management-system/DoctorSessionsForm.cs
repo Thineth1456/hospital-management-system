@@ -200,10 +200,13 @@ namespace hospital_management_system
                     Text = "New Apt.",
                     UseColumnTextForButtonValue = true,
                     Width = 150,
+                    FlatStyle = FlatStyle.Flat,
                     DefaultCellStyle = new DataGridViewCellStyle
                     {
                         BackColor = Color.FromArgb(16, 185, 129),
-                        ForeColor = Color.Red,
+                        ForeColor = Color.White,
+                        SelectionBackColor = Color.FromArgb(16, 185, 129),
+                        SelectionForeColor = Color.White,
                         Alignment = DataGridViewContentAlignment.MiddleCenter
                     }
                 });
@@ -309,9 +312,16 @@ namespace hospital_management_system
             if (e.RowIndex >= 0 && dgvSessions.Columns[e.ColumnIndex].Name == "PlaceAppointment")
             {
                 var sessionId = dgvSessions.Rows[e.RowIndex].Cells[0].Value?.ToString();
-                if (!string.IsNullOrEmpty(sessionId))
+                if (!string.IsNullOrEmpty(sessionId) && _selectedDoctor != null)
                 {
-                    MessageBox.Show($"Appointment successfully placed for Session {sessionId} with {_selectedDoctor?.Name}!", "Appointment Placed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    var session = DataManager.GetSessions().Find(s => s.Id == sessionId);
+                    if (session != null)
+                    {
+                        using (var form = new PlaceAppointmentForm(session, _selectedDoctor))
+                        {
+                            form.ShowDialog(this);
+                        }
+                    }
                 }
             }
         }

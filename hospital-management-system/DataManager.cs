@@ -10,6 +10,8 @@ namespace hospital_management_system
     {
         public List<Doctor> Doctors { get; set; } = new List<Doctor>();
         public List<Session> Sessions { get; set; } = new List<Session>();
+        public List<Patient> Patients { get; set; } = new List<Patient>();
+        public List<Appointment> Appointments { get; set; } = new List<Appointment>();
     }
 
     public static class DataManager
@@ -57,6 +59,44 @@ namespace hospital_management_system
                 return true;
             }
             return false;
+        }
+
+        public static List<Patient> GetPatients()
+        {
+            return _data.Patients;
+        }
+
+        public static List<Appointment> GetAppointments()
+        {
+            return _data.Appointments;
+        }
+
+        public static Patient GetPatientById(string id)
+        {
+            return _data.Patients.FirstOrDefault(p => p.Id.Equals(id, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public static List<Appointment> GetAppointmentsForSession(string sessionId)
+        {
+            return _data.Appointments.Where(a => a.SessionId == sessionId).ToList();
+        }
+
+        public static int GetNextAppointmentNumber(string sessionId)
+        {
+            var appointments = GetAppointmentsForSession(sessionId);
+            return appointments.Count > 0 ? appointments.Max(a => a.AppointmentNumber) + 1 : 1;
+        }
+
+        public static void AddAppointment(Appointment appointment)
+        {
+            _data.Appointments.Add(appointment);
+            SaveData();
+        }
+
+        public static void AddPatient(Patient patient)
+        {
+            _data.Patients.Add(patient);
+            SaveData();
         }
 
         public static void LoadData()
@@ -108,6 +148,11 @@ namespace hospital_management_system
             _data.Doctors.Add(new Doctor("2", "Dr. Alexander Wright", "Pediatrician", "Pediatrics Clinic", "Room 102"));
             _data.Doctors.Add(new Doctor("3", "Dr. Sophia Martinez", "Neurologist", "Neurology Lab", "Room 305"));
             _data.Doctors.Add(new Doctor("4", "Dr. Marcus Vance", "Orthopedic Surgeon", "Orthopedics Unit", "Room 211"));
+
+            // Add mock Patients
+            _data.Patients.Add(new Patient("P101", "Emma Watson", "28", "Female", "077-1234567"));
+            _data.Patients.Add(new Patient("P102", "John Doe", "45", "Male", "071-7654321"));
+            _data.Patients.Add(new Patient("P103", "Sarah Connor", "35", "Female", "075-9876543"));
 
             // Add mock Sessions (using current date/upcoming days)
             DateTime today = DateTime.Today;
