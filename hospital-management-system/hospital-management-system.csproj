@@ -102,11 +102,58 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DoctorHub.Designer.cs" />
+    <Compile Include="doctorRegistration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="doctorRegistration.Designer.cs">
+      <DependentUpon>doctorRegistration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Doctor.cs" />
+    <Compile Include="patient_list.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="patient_list.Designer.cs">
+      <DependentUpon>patient_list.cs</DependentUpon>
+    </Compile>
+    <Compile Include="patient_reciption.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="patient_reciption.Designer.cs">
+      <DependentUpon>patient_reciption.cs</DependentUpon>
+    </Compile>
+    <Compile Include="patient_registration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="patient_registration.Designer.cs">
+      <DependentUpon>patient_registration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Session.cs" />
+    <Compile Include="DataManager.cs" />
+    <Compile Include="Patient.cs" />
+    <Compile Include="Appointment.cs" />
+    <Compile Include="DoctorSessionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DoctorSessionsForm.Designer.cs">
+      <DependentUpon>DoctorSessionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddSessionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddSessionForm.Designer.cs">
+      <DependentUpon>AddSessionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PlaceAppointmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PlaceAppointmentForm.Designer.cs">
+      <DependentUpon>PlaceAppointmentForm.cs</DependentUpon>
     </Compile>
     <Compile Include="HospitalDashboard.cs">
       <SubType>Form</SubType>
@@ -124,8 +171,23 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DoctorHub.resx" />
+    <EmbeddedResource Include="doctorRegistration.resx">
+      <DependentUpon>doctorRegistration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DoctorSessionsForm.resx">
+      <DependentUpon>DoctorSessionsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="patient_list.resx">
+      <DependentUpon>patient_list.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="patient_reciption.resx">
+      <DependentUpon>patient_reciption.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="patient_registration.resx">
+      <DependentUpon>patient_registration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HospitalDashboard.resx">
       <DependentUpon>HospitalDashboard.cs</DependentUpon>
