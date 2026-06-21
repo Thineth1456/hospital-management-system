@@ -6,6 +6,9 @@ namespace hospital_management_system
 {
     public partial class Form1 : Form
     {
+        public static string LoggedInUserID { get; internal set; }
+        public static string LoggedInUserName { get; internal set; }
+
         public Form1()
         {
             InitializeComponent();
@@ -75,6 +78,12 @@ namespace hospital_management_system
                 // DoctorSessionsForm dashboard = new DoctorSessionsForm();
                 // dashboard.Show();
                 //this.Hide();
+                MessageBox.Show(
+                    "Login Successful!",
+                    "Success",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                
             }
             else
             {
