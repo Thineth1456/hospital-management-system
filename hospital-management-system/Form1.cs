@@ -17,7 +17,6 @@ namespace hospital_management_system
 
         private void ApplyTheme()
         {
-            // Set Form styling to match premium theme
             this.BackColor = Color.FromArgb(15, 23, 42); // Slate 900
             this.ForeColor = Color.FromArgb(241, 245, 249); // Slate 100
             this.StartPosition = FormStartPosition.CenterScreen;

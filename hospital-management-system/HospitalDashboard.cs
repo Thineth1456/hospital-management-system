@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,7 +20,6 @@ namespace hospital_management_system
         {
             UpdateLiveDateTime();
 
-            // 🚀 ඇප් එක ඕපන් වෙද්දීම කෙළින්ම Overview Form එක පැනල් එක ඇතුළට ලෝඩ් කරනවා
             LoadOverviewForm();
         }
         private void tmrClock_Tick(object sender, EventArgs e)
@@ -56,10 +55,9 @@ namespace hospital_management_system
                 else if (txt.Contains("Prescription")) lblSubTitle.Text = "Prescription Report";
                 else lblSubTitle.Text = txt;
 
-                // 🎛️ බටන්ස් ක්ලික් කරද්දී වෙනස් වන ලොජික් එක
                 if (clickedButton.Name == "btnOverview" || txt.Contains("Dashboard Overview"))
                 {
-                    LoadOverviewForm(); // 🏠 ආයෙත් Overview එක එබුවොත් ඒක පැනල් එකට ලෝඩ් වෙනවා
+                    LoadOverviewForm();
                 }
                 else if (clickedButton == btnPatientReg) {
                     ShowPlaceholder("Patient Registration Engine");
@@ -95,7 +93,6 @@ namespace hospital_management_system
                     setDashboard.Show();
                 } 
 
-                // 📄 🆕 මෙන්න මෙතන තිබ්බ තාවකාලික ShowPlaceholder එක අයින් කරලා කෙළින්ම DoctorHub එක ලෝඩ් කරන මෙතඩ් එක කෝල් කලා:
                 else if (clickedButton == btnPrescription)
                 {
                     LoadDoctorHubForm();
@@ -119,39 +116,58 @@ namespace hospital_management_system
             }
         }
 
-        // 🔄 Overview Form එක Dashboard එක ඇතුළේ පෙන්වන මෙතඩ් එක
         private void LoadOverviewForm()
         {
             pnlMainDisplay.Controls.Clear();
             lblSubTitle.Text = "Dashboard Overview";
 
             Overview frmOverview = new Overview();
-            frmOverview.TopLevel = false;            // TopLevel Window එකක් නෙවෙයි කියලා කියනවා
-            frmOverview.FormBorderStyle = FormBorderStyle.None; // බෝඩර්ස් අයින් කරනවා
-            frmOverview.Dock = DockStyle.Fill;       // පැනල් එකේ සයිස් එකටම සෙට් කරනවා
+            frmOverview.TopLevel = false;
+            frmOverview.FormBorderStyle = FormBorderStyle.None;
+            frmOverview.Dock = DockStyle.Fill;
 
             pnlMainDisplay.Controls.Add(frmOverview);
             frmOverview.Show();
         }
 
-        // 🔄 🆕 DoctorHub Form එක Dashboard එක ඇතුළට ඔබ්බවා පෙන්වන අලුත් මෙතඩ් එක
         private void LoadDoctorHubForm()
         {
-            // 1. පැනල් එකේ දැනට පේන්න තියෙන දේවල් (Overview හෝ වෙනත් ඒවා) ඔක්කොම අයින් කරනවා
             pnlMainDisplay.Controls.Clear();
             lblSubTitle.Text = "Prescription Report";
 
-            // 2. DoctorHub ෆෝම් එකේ අලුත් Object එකක් ක්‍රියේට් කරනවා
             DoctorHub frmDoctorHub = new DoctorHub();
 
-            // 3. ⚠️ Form එකක් Panel එකක් ඇතුළට බස්සන්න අනිවාර්යයෙන්ම මේ ටික ඕනේ:
-            frmDoctorHub.TopLevel = false;                  // සැබෑ Window එකක් නෙවෙයි කියලා කියනවා
-            frmDoctorHub.FormBorderStyle = FormBorderStyle.None; // ඉහළ තියෙන Close/Minimize බෝඩර්ස් අයින් කරනවා
-            frmDoctorHub.Dock = DockStyle.Fill;             // මැද තියෙන පැනල් එකේ සයිස් එකටම Fit කරනවා
+            frmDoctorHub.TopLevel = false;
+            frmDoctorHub.FormBorderStyle = FormBorderStyle.None;
+            frmDoctorHub.Dock = DockStyle.Fill;
 
-            // 4. පැනල් එකේ Controls ලයිස්තුවට මේ ෆෝම් එක එකතු කරලා පෙන්වනවා
             pnlMainDisplay.Controls.Add(frmDoctorHub);
             frmDoctorHub.Show();
+            pnlMainDisplay.Controls.Add(frmDoctorHub);
+            frmDoctorHub.Show();
+        }
+
+        public void LoadPatientRegistrationForm()
+        {
+            pnlMainDisplay.Controls.Clear();
+            lblSubTitle.Text = "Patient Registration";
+
+            // Setup Navigation Indicator and styling for Patient Registration button
+            pnlNavIndicator.Visible = true;
+            pnlNavIndicator.Height = btnPatientReg.Height;
+            pnlNavIndicator.Top = btnPatientReg.Top;
+
+            ResetButtonStyles();
+            btnPatientReg.BackColor = Color.FromArgb(51, 65, 85);
+            btnPatientReg.ForeColor = Color.FromArgb(56, 189, 248);
+
+            var setDashboard = new HMS.Form2();
+            setDashboard.TopLevel = false;
+            setDashboard.FormBorderStyle = FormBorderStyle.None;
+            setDashboard.Dock = DockStyle.Fill;
+            
+            pnlMainDisplay.Controls.Add(setDashboard);
+            setDashboard.Show();
         }
 
         private void ShowPlaceholder(string sectionName)

@@ -34,11 +34,11 @@ namespace hospital_management_system
             this.btnPrescription = new System.Windows.Forms.Button();
             this.btnOverview = new System.Windows.Forms.Button();
             this.pnlHeader = new System.Windows.Forms.Panel();
+            this.btnLogout = new System.Windows.Forms.Button();
             this.lblDateTime = new System.Windows.Forms.Label();
             this.lblSubTitle = new System.Windows.Forms.Label();
             this.pnlMainDisplay = new System.Windows.Forms.Panel();
             this.tmrClock = new System.Windows.Forms.Timer(this.components);
-            this.btnLogout = new System.Windows.Forms.Button();
             this.pnlSidebar.SuspendLayout();
             this.pnlHeader.SuspendLayout();
             this.SuspendLayout();
@@ -180,6 +180,21 @@ namespace hospital_management_system
             this.pnlHeader.Size = new System.Drawing.Size(1253, 98);
             this.pnlHeader.TabIndex = 1;
             // 
+            // btnLogout
+            // 
+            this.btnLogout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.btnLogout.FlatAppearance.BorderSize = 0;
+            this.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLogout.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Bold);
+            this.btnLogout.ForeColor = System.Drawing.Color.White;
+            this.btnLogout.Location = new System.Drawing.Point(768, 30);
+            this.btnLogout.Name = "btnLogout";
+            this.btnLogout.Size = new System.Drawing.Size(100, 40);
+            this.btnLogout.TabIndex = 3;
+            this.btnLogout.Text = "Log Out";
+            this.btnLogout.UseVisualStyleBackColor = false;
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
+            // 
             // lblDateTime
             // 
             this.lblDateTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -198,7 +213,7 @@ namespace hospital_management_system
             this.lblSubTitle.AutoSize = true;
             this.lblSubTitle.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold);
             this.lblSubTitle.ForeColor = System.Drawing.Color.White;
-            this.lblSubTitle.Location = new System.Drawing.Point(33, 28);
+            this.lblSubTitle.Location = new System.Drawing.Point(71, 28);
             this.lblSubTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSubTitle.Name = "lblSubTitle";
             this.lblSubTitle.Size = new System.Drawing.Size(286, 37);
@@ -222,21 +237,6 @@ namespace hospital_management_system
             this.tmrClock.Enabled = true;
             this.tmrClock.Interval = 1000;
             this.tmrClock.Tick += new System.EventHandler(this.tmrClock_Tick);
-            // 
-            // btnLogout
-            // 
-            this.btnLogout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            this.btnLogout.FlatAppearance.BorderSize = 0;
-            this.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLogout.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Bold);
-            this.btnLogout.ForeColor = System.Drawing.Color.White;
-            this.btnLogout.Location = new System.Drawing.Point(804, 30);
-            this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(100, 40);
-            this.btnLogout.TabIndex = 3;
-            this.btnLogout.Text = "Log Out";
-            this.btnLogout.UseVisualStyleBackColor = false;
-            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
             // HospitalDashboard
             // 

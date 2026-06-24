@@ -101,7 +101,9 @@
     <Compile Include="DoctorHub.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DoctorHub.Designer.cs" />
+    <Compile Include="DoctorHub.Designer.cs">
+      <DependentUpon>DoctorHub.cs</DependentUpon>
+    </Compile>
     <Compile Include="doctorRegistration.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -170,7 +172,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="DoctorHub.resx" />
+    <EmbeddedResource Include="DoctorHub.resx">
+      <DependentUpon>DoctorHub.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="doctorRegistration.resx">
       <DependentUpon>doctorRegistration.cs</DependentUpon>
     </EmbeddedResource>

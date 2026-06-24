@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace hospital_management_system
@@ -96,11 +97,20 @@ namespace hospital_management_system
 
                 if (result == DialogResult.Yes)
                 {
-                    // Open registration page (HMS.Form2)
-                    var regForm = new HMS.Form2();
-                    regForm.TopMost = true;
-                    regForm.Show();
                     this.Close();
+
+                    // Find the open instance of HospitalDashboard and load the Patient Registration form
+                    var dashboard = Application.OpenForms.OfType<HospitalDashboard>().FirstOrDefault();
+                    if (dashboard != null)
+                    {
+                        dashboard.LoadPatientRegistrationForm();
+                    }
+                    else
+                    {
+                        // Fallback: If not hosted in dashboard, just open Form2 as a standalone window
+                        var regForm = new HMS.Form2();
+                        regForm.Show();
+                    }
                 }
             }
         }
